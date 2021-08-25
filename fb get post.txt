@@ -1,0 +1,15 @@
+public void Y()
+    {
+        WebClient fbaccess = new WebClient();
+        fbaccess.Proxy.Credentials = CredentialCache.DefaultNetworkCredentials;
+        var accesstoken = fbaccess.DownloadString("https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=<Client_id>&client_secret=<secret_key>&fb_exchange_token=<accessToken>");
+
+        string token = accesstoken.Remove(0, 13);
+        token = token.Remove(token.Length - 16);
+
+        WebClient fbdev = new WebClient();
+        fbdev.Proxy.Credentials = CredentialCache.DefaultNetworkCredentials;
+        var jdata = fbdev.DownloadString("https://graph.facebook.com/<page_id>/feed?access_token="+ token +"");
+        //JObject jparse = jObject.Parse(jdata);
+        
+    }
